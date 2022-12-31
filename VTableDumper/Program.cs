@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -9,6 +10,9 @@ namespace VTableDumper
     {
         static string[] ParseMethodArguments(string methodCall)
         {
+            foreach (var arg in settings)
+                methodCall = methodCall.Replace(arg.Key, arg.Value);
+
             string[] split = methodCall.Split(new char[] { '(', ')', ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (split.Length == 1)
@@ -16,6 +20,17 @@ namespace VTableDumper
 
             return split.Skip(1).ToArray();
         }
+
+        public static Dictionary<string, string> settings = new Dictionary<string, string>()
+        {
+            { "Vec2", "Vector2<float>" },
+            { "Vec3", "Vector3<float>" },
+            { "Vec4", "Vector4<float>" },
+
+            { "Vec2i", "Vector2<int>" },
+            { "Vec3i", "Vector3<int>" },
+            { "Vec4i", "Vector4<int>" },
+        };
 
         [STAThread]
         static void Main(string[] a1)
@@ -49,11 +64,14 @@ namespace VTableDumper
 
                     if (funcArgs != null && funcArgs.Length > 0)
                     {
-                        int index = 1;
-                        foreach (string arg in funcArgs)
+                        if (!(funcArgs.Length == 1 && funcArgs[0] == "void"))
                         {
-                            newFuncArgs += arg + " a" + index + ", ";
-                            index++;
+                            int index = 1;
+                            foreach (string arg in funcArgs)
+                            {
+                                newFuncArgs += arg + " a" + index + ", ";
+                                index++;
+                            }
                         }
 
                         //Console.WriteLine(newFuncArgs);
