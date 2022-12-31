@@ -24,25 +24,30 @@ namespace VTableDumper
 
             StringBuilder sb = new StringBuilder();
             string curClass = null;
+
+            int funcIndex = 0;
             foreach (string line in lines)
             {
                 if (line.Contains("::") && line.Contains(";"))
                 {
-                    string splitLine = line.Split(';')[1];
-                    string[] args = splitLine.Trim().Replace("::", ":").Split(':'); // class, func(args)
+                    string splitLine = line.Split(';')[1].Trim();
+
+                    string mainstr = splitLine.Substring(splitLine.IndexOf(':') + 2, splitLine.Length - splitLine.IndexOf(':') - 2);
 
                     if (curClass == null)
                     {
-                        curClass = args[0];
+                        curClass = splitLine.Substring(0, splitLine.IndexOf(':'));
 
                         sb.AppendLine($"class {curClass} {{");
                         sb.AppendLine("public:");
                     }
 
-                    string[] funcArgs = ParseMethodArguments(args[1].Replace(" ", ""));
+                    string[] funcArgs = ParseMethodArguments(
+                        mainstr.Replace(" ", "").Replace("const", " const")
+                    );
                     string newFuncArgs = "";
 
-                    if (funcArgs.Length > 0)
+                    if (funcArgs != null && funcArgs.Length > 0)
                     {
                         int index = 1;
                         foreach (string arg in funcArgs)
@@ -50,10 +55,14 @@ namespace VTableDumper
                             newFuncArgs += arg + " a" + index + ", ";
                             index++;
                         }
+
+                        //Console.WriteLine(newFuncArgs);
                     }
 
-                    sb.AppendLine($"    virtual void {args[1].Split('(')[0]}({newFuncArgs.Trim().Trim(',')});");
+                    sb.AppendLine($"    virtual void {mainstr.Split('(')[0]}({newFuncArgs.Trim().Trim(',')});");
                 }
+
+                funcIndex++;
             }
             sb.AppendLine("}");
             Console.WriteLine(sb.ToString());
