@@ -249,4 +249,5 @@ public: // VTables
     virtual void reloadLootTable();
     virtual void reloadLootTable(class EquipmentTableDefinition const& a1);
     virtual void getDeletionDelayTimeSeconds();
-    virtual void kill();```
+    virtual void kill();
+}```
