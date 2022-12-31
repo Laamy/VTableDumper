@@ -1,8 +1,8 @@
 Resulting classes once cleaned up ofc look like so
 
 ```cpp
-class Actor { // cuz these r sigs to get the offsets to stuff
-public: // VTables
+class Actor {
+public:
     virtual void getStatusFlag(class ActorFlags a1);
     virtual void setStatusFlag(ActorFlags a1, bool a2);
     virtual void getLastHurtByMob();
