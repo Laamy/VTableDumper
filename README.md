@@ -1,6 +1,32 @@
 Resulting classes once cleaned up ofc look like so
 
 ```cpp
+class GameMode {
+    virtual void D0Func();
+    virtual void D1Func();
+public:
+    virtual void startDestroyBlock(Vector3<int> const& a1, unsigned char a2, bool& a3);
+    virtual void destroyBlock(Vector3<int> const& a1, unsigned char a2);
+    virtual void continueDestroyBlock(Vector3<int> const& a1, unsigned char a2, Vector3<float> const& a3, bool& a4);
+    virtual void stopDestroyBlock(Vector3<int> const& a1);
+    virtual void startBuildBlock(Vector3<int> const& a1, unsigned char a2);
+    virtual void buildBlock(Vector3<int> const& a1, unsigned char a2, bool a3);
+    virtual void continueBuildBlock(Vector3<int> const& a1, unsigned char a2);
+    virtual void stopBuildBlock();
+    virtual void tick();
+    virtual void getPickRange(InputMode const& a1, bool a2);
+    virtual void useItem(ItemStack& a1);
+    virtual void useItemOn(ItemStack& a1, Vector3<int> const& a2, unsigned char a3, Vector3<float> const& a4, Block const* a5);
+    virtual void interact(Actor& a1, Vector3<float> const& a2);
+    virtual void attack(Actor& a1);
+    virtual void releaseUsingItem();
+    virtual void setTrialMode(bool a1);
+    virtual void isInTrialMode();
+    virtual void registerUpsellScreenCallback(std::function<void a1, bool a2, > a3);
+}
+```
+
+```cpp
 class Actor {
 public:
     virtual void getStatusFlag(ActorFlags a1);
@@ -19,8 +45,10 @@ public:
     virtual void _serverInitItemStackIds();
     virtual void _doInitialMove();
     virtual void hasComponent(HashedString const& a1);
-    virtual void ~Actor();
-    virtual void ~Actor();
+private:
+    virtual void D16Func();
+    virtual void D17Func();
+public:
     virtual void resetUserPos(bool a1);
     virtual void getOwnerEntityType();
     virtual void remove();
@@ -155,7 +183,7 @@ public:
     virtual void animateHurt();
     virtual void doFireHurt(int a1);
     virtual void onLightningHit();
-    virtual void onBounceStarted(BlockPos const& a1, Block const& a2);
+    virtual void onBounceStarted(Vector3<int> const& a1, Block const& a2);
     virtual void feed(int a1);
     virtual void handleEntityEvent(ActorEvent a1, int a2);
     virtual void getPickRadius();
@@ -190,7 +218,7 @@ public:
     virtual void canFreeze();
     virtual void isWearingLeatherArmor();
     virtual void getLiquidAABB(MaterialType a1);
-    virtual void handleInsidePortal(BlockPos const& a1);
+    virtual void handleInsidePortal(Vector3<int> const& a1);
     virtual void getPortalCooldown();
     virtual void getPortalWaitTime();
     virtual void canChangeDimensionsUsingPortal();
@@ -233,7 +261,7 @@ public:
     virtual void openContainerComponent(Player& a1);
     virtual void swing();
     virtual void useItem(ItemStackBase& a1, ItemUseMethod a2, bool a3);
-    virtual void hasOutputSignal(uchar a1);
+    virtual void hasOutputSignal(unsigned char a1);
     virtual void getOutputSignal();
     virtual void getDebugText(std::vector<std::__cxx11::basic_string<char a1, std::char_traits<char> a2, std::allocator<char>> a3, std::allocator<std::__cxx11::basic_string<char a4, std::char_traits<char> a5, std::allocator<char>>>>& a6);
     virtual void getMapDecorationRotation();
@@ -282,8 +310,8 @@ public:
     virtual void _getAnimationComponent(std::shared_ptr<AnimationComponent>& a1, AnimationComponentGroupType a2);
     virtual void readAdditionalSaveData(CompoundTag const& a1, DataLoadHelper& a2);
     virtual void addAdditionalSaveData(CompoundTag& a1);
-    virtual void _playStepSound(BlockPos const& a1, Block const& a2);
-    virtual void _playFlySound(BlockPos const& a1, Block const& a2);
+    virtual void _playStepSound(Vector3<int> const& a1, Block const& a2);
+    virtual void _playFlySound(Vector3<int> const& a1, Block const& a2);
     virtual void _makeFlySound();
     virtual void checkInsideBlocks(float a1);
     virtual void pushOutOfBlocks(Vector3<float> const& a1);
