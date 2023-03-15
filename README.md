@@ -12,10 +12,10 @@ public:
     virtual void getLastHurtMob();
     virtual void setLastHurtMob(Actor* a1);
     virtual void outOfWorld();
-    virtual void reloadHardcoded(Actor::InitializationMethod a1, VariantParameterList const& a2);
-    virtual void reloadHardcodedClient(Actor::InitializationMethod a1, VariantParameterList const& a2);
-    virtual void initializeComponents(Actor::InitializationMethod a1, VariantParameterList const& a2);
-    virtual void reloadComponents(Actor::InitializationMethod a1, VariantParameterList const& a2);
+    virtual void reloadHardcoded(InitializationMethod a1, VariantParameterList const& a2);
+    virtual void reloadHardcodedClient(InitializationMethod a1, VariantParameterList const& a2);
+    virtual void initializeComponents(InitializationMethod a1, VariantParameterList const& a2);
+    virtual void reloadComponents(InitializationMethod a1, VariantParameterList const& a2);
     virtual void _serverInitItemStackIds();
     virtual void _doInitialMove();
     virtual void hasComponent(HashedString const& a1);
@@ -296,7 +296,7 @@ public:
 private:
     virtual void function_280();
 public:
-    virtual void Actor::isInLiquid(MaterialType a1, IConstBlockSource const& a2, AABB const& a3, std::vector<AABB a4, std::allocator<AABB>> const& a5, +2E↓o a6);
+    virtual void isInLiquid(MaterialType a1, IConstBlockSource const& a2, AABB const& a3, std::vector<AABB a4, std::allocator<AABB>> const& a5, +2E↓o a6);
     virtual void getLiquidAABB(AABB const& a1, MaterialType a2, +E↓o... a3);
 private:
     virtual void function_283();
@@ -315,7 +315,7 @@ public:
 private:
     virtual void function_295();
 public:
-    virtual void Actor::isInLiquid(MaterialType a1, IConstBlockSource const& a2, AABB const& a3, std::vector<AABB a4, std::allocator<AABB>> const& a5, +38↓o a6);
+    virtual void isInLiquid(MaterialType a1, IConstBlockSource const& a2, AABB const& a3, std::vector<AABB a4, std::allocator<AABB>> const& a5, +38↓o a6);
     virtual void getLiquidAABB(AABB const& a1, MaterialType a2, :loc_5359755↓o... a3);
 private:
     virtual void function_298();
