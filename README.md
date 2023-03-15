@@ -1,4 +1,4 @@
-Resulting classes once cleaned up ofc look like so
+Resulting classes direct output
 
 ```cpp
 class GameMode {
