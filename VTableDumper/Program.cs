@@ -81,8 +81,9 @@ namespace VTableDumper
                 }
                 funcIndex++;
             }
+
             sb.AppendLine("}");
-            Console.WriteLine(sb.ToString());
+            Console.WriteLine(sb.ToString().Replace($"{curClass}::", ""));
             Console.ReadLine();
         }
     }
