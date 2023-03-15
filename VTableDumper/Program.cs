@@ -27,9 +27,9 @@ namespace VTableDumper
             { "Vec3", "Vector3<float>" },
             { "Vec4", "Vector4<float>" },
 
-            { "Vec2i", "Vector2<int>" },
-            { "Vec3i", "Vector3<int>" },
-            { "Vec4i", "Vector4<int>" },
+            { "BlockPos", "Vector3<int>" },
+
+            { "uchar", "unsigned char" },
         };
 
         [STAThread]
@@ -39,17 +39,11 @@ namespace VTableDumper
             StringBuilder sb = new StringBuilder();
             string curClass = null;
             int funcIndex = 0;
-            bool privatePadding = false;
+            bool privatePadding = true;
             foreach (string line in lines)
             {
                 if (line.Contains("::") && line.Contains(";"))
                 {
-                    if (privatePadding)
-                    {
-                        sb.AppendLine($"public:");
-                        privatePadding = false;
-                    }
-
                     string splitLine = line.Split(';')[1].Trim();
                     string mainstr = splitLine.Substring(splitLine.IndexOf(':') + 2);
                     string[] funcArgs = ParseMethodArguments(mainstr.Replace(" ", "").Replace("const", " const"));
@@ -58,7 +52,24 @@ namespace VTableDumper
                     {
                         curClass = splitLine.Substring(0, splitLine.IndexOf(':'));
                         sb.AppendLine($"class {curClass} {{");
-                        sb.AppendLine("public:");
+                    }
+
+                    if (line.Contains("~"))
+                    {
+                        if (!privatePadding)
+                        {
+                            sb.AppendLine($"private:");
+                            privatePadding = true;
+                        }
+                        sb.AppendLine($"    virtual void D{funcIndex}Func();");
+                        funcIndex++;
+                        continue;
+                    }
+
+                    if (privatePadding)
+                    {
+                        sb.AppendLine($"public:");
+                        privatePadding = false;
                     }
 
                     if (funcArgs != null && funcArgs.Length > 0 && !(funcArgs.Length == 1 && funcArgs[0] == "void"))
