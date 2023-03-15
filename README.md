@@ -329,4 +329,5 @@ private:
     virtual void function_306();
     virtual void function_307();
     virtual void function_308();
-}```
+}
+```
